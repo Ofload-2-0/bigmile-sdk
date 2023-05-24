@@ -1,10 +1,10 @@
 <?php
 
-namespace Ofload\BigmileSdk\Support;
+namespace Ofload\BigmileSdk\DTOs;
 
 use Ofload\BigmileSdk\Contracts\ArrayableInterface;
 
-class CredentialsValueObject implements ArrayableInterface
+class CredentialsDTO implements ArrayableInterface
 {
     public function __construct(
         public string $tenantId,
