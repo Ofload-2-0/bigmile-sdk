@@ -29,13 +29,13 @@ class BigMileClient
     {
     }
 
-    public function getAccessToken(CredentialsDTO $valueObject): AccessTokenDTO
+    public function getAccessToken(CredentialsDTO $credentialsDTO): AccessTokenDTO
     {
-        $accessTokenEndpoint = str_replace('{{tenant_id}}', $valueObject->tenantId, static::ACCESS_TOKEN_ENDPOINT);
+        $accessTokenEndpoint = str_replace('{{tenant_id}}', $credentialsDTO->tenantId, static::ACCESS_TOKEN_ENDPOINT);
 
         try {
             $response = $this->client->post($accessTokenEndpoint, [
-                    RequestOptions::FORM_PARAMS => $valueObject->toArray()
+                    RequestOptions::FORM_PARAMS => $credentialsDTO->toArray()
                 ])
                 ->getBody()
                 ->getContents();
