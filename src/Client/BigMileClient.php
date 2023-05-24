@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Ofload\BigmileSdk\Client;
+namespace Ofload\BigMileSdk\Client;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
-use Ofload\BigmileSdk\DTOs\AccessTokenDTO;
-use Ofload\BigmileSdk\DTOs\CalculateEmissionRequestDTO;
-use Ofload\BigmileSdk\DTOs\CalculateEmissionResponseDTO;
-use Ofload\BigmileSdk\DTOs\CredentialsDTO;
-use Ofload\BigmileSdk\Exceptions\CalculationEmissionException;
-use Ofload\BigmileSdk\Exceptions\OauthClientAccessTokenException;
+use Ofload\BigMileSdk\DTOs\AccessTokenDTO;
+use Ofload\BigMileSdk\DTOs\CalculateEmissionRequestDTO;
+use Ofload\BigMileSdk\DTOs\CalculateEmissionResponseDTO;
+use Ofload\BigMileSdk\DTOs\CredentialsDTO;
+use Ofload\BigMileSdk\Exceptions\CalculationEmissionException;
+use Ofload\BigMileSdk\Exceptions\OauthClientAccessTokenException;
 
 class BigMileClient
 {

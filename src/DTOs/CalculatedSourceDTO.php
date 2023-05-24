@@ -1,6 +1,6 @@
 <?php
 
-namespace Ofload\BigmileSdk\DTOs;
+namespace Ofload\BigMileSdk\DTOs;
 
 class CalculatedSourceDTO
 {

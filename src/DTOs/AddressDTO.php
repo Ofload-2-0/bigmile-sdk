@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ofload\BigmileSdk\DTOs;
+namespace Ofload\BigMileSdk\DTOs;
 
 class AddressDTO
 {

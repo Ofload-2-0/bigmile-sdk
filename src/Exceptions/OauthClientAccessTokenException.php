@@ -1,6 +1,6 @@
 <?php
 
-namespace Ofload\BigmileSdk\Exceptions;
+namespace Ofload\BigMileSdk\Exceptions;
 
 class OauthClientAccessTokenException extends \Exception
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Ofload\BigmileSdk\DTOs;
+namespace Ofload\BigMileSdk\DTOs;
 
-use Ofload\BigmileSdk\Contracts\ArrayableInterface;
+use Ofload\BigMileSdk\Contracts\ArrayableInterface;
 
 class CalculateEmissionRequestDTO implements ArrayableInterface
 {

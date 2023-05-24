@@ -11,12 +11,12 @@
     "license": "proprietary",
     "autoload": {
         "psr-4": {
-            "Ofload\\BigmileSdk\\": "src/"
+            "Ofload\\BigMileSdk\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Ofload\\BigmileSdk\\Tests\\": "tests/"
+            "Ofload\\BigMileSdk\\Tests\\": "tests/"
         }
     },
     "authors": [

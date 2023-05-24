@@ -1,6 +1,6 @@
 <?php
 
-namespace Ofload\BigmileSdk\Contracts;
+namespace Ofload\BigMileSdk\Contracts;
 
 interface ArrayableInterface
 {

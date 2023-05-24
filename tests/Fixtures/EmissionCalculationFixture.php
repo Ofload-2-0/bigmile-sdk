@@ -1,6 +1,6 @@
 <?php
 
-namespace Ofload\BigmileSdk\Tests\Fixtures;
+namespace Ofload\BigMileSdk\Tests\Fixtures;
 
 class EmissionCalculationFixture
 {

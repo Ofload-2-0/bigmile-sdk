@@ -1,17 +1,17 @@
 <?php
 
-namespace Ofload\BigmileSdk\Tests\Unit;
+namespace Ofload\BigMileSdk\Tests\Unit;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use Ofload\BigmileSdk\Client\BigMileClient;
-use Ofload\BigmileSdk\DTOs\CalculatedShipmentDTO;
-use Ofload\BigmileSdk\DTOs\CalculateEmissionRequestDTO;
-use Ofload\BigmileSdk\DTOs\CredentialsDTO;
-use Ofload\BigmileSdk\Exceptions\OauthClientAccessTokenException;
-use Ofload\BigmileSdk\Tests\Fixtures\EmissionCalculationFixture;
+use Ofload\BigMileSdk\Client\BigMileClient;
+use Ofload\BigMileSdk\DTOs\CalculatedShipmentDTO;
+use Ofload\BigMileSdk\DTOs\CalculateEmissionRequestDTO;
+use Ofload\BigMileSdk\DTOs\CredentialsDTO;
+use Ofload\BigMileSdk\Exceptions\OauthClientAccessTokenException;
+use Ofload\BigMileSdk\Tests\Fixtures\EmissionCalculationFixture;
 use PHPUnit\Framework\TestCase;
 
 class BigMileClientTest extends TestCase
