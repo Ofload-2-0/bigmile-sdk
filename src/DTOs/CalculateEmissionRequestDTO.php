@@ -131,6 +131,10 @@ class CalculateEmissionRequestDTO implements ArrayableInterface
 
     public function toArray(): array
     {
-        return get_object_vars($this);
+        $result = get_object_vars($this);
+        $result['origin'] = $this->origin->toArray();
+        $result['destination'] = $this->destination->toArray();
+
+        return $result;
     }
 }
