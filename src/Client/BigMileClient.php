@@ -47,11 +47,16 @@ class BigMileClient
         }
     }
 
-    public function calculateEmission(CalculateEmissionRequestDTO $calculateEmissionDTO): CalculateEmissionResponseDTO
-    {
+    public function calculateEmission(
+        CalculateEmissionRequestDTO $calculateEmissionDTO,
+        AccessTokenDTO $accessTokenDTO
+    ): CalculateEmissionResponseDTO {
         try {
             $response = $this->client->post(self::CALCULATE_EMISSION_ENDPOINT, [
-                    RequestOptions::JSON => $calculateEmissionDTO->toArray()
+                    RequestOptions::JSON => $calculateEmissionDTO->toArray(),
+                    RequestOptions::HEADERS => [
+                        'Authorization' => sprintf('%s %s', $accessTokenDTO->getTokenType(), $accessTokenDTO->getAccessToken())
+                    ]
                 ])
                 ->getBody()
                 ->getContents();

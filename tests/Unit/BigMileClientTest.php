@@ -7,6 +7,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Ofload\BigMileSdk\Client\BigMileClient;
+use Ofload\BigMileSdk\DTOs\AccessTokenDTO;
 use Ofload\BigMileSdk\DTOs\AddressDTO;
 use Ofload\BigMileSdk\DTOs\CalculatedShipmentDTO;
 use Ofload\BigMileSdk\DTOs\CalculateEmissionRequestDTO;
@@ -72,7 +73,8 @@ class BigMileClientTest extends TestCase
         $client = new BigMileClient(
             new Client(['handler' => $handleStack])
         );
-        $client->calculateEmission($this->getEmptyEmission());
+        $accessTokenDTO = $client->getAccessToken($this->getCredentials());
+        $client->calculateEmission($this->getEmptyEmission(), $accessTokenDTO);
     }
 
     public function testItShouldCaptureUnprocessableEntityExceptionDuringEmissionCalculation(): void
@@ -92,7 +94,8 @@ class BigMileClientTest extends TestCase
         $client = new BigMileClient(
             new Client(['handler' => $handleStack])
         );
-        $client->calculateEmission($this->getEmptyEmission());
+        $accessTokenDTO = $client->getAccessToken($this->getCredentials());
+        $client->calculateEmission($this->getEmptyEmission(), $accessTokenDTO);
     }
 
     public function testItShouldCaptureUnauthorizedExceptionDuringEmissionCalculation(): void
@@ -112,7 +115,8 @@ class BigMileClientTest extends TestCase
         $client = new BigMileClient(
             new Client(['handler' => $handleStack])
         );
-        $client->calculateEmission($this->getEmptyEmission());
+        $accessTokenDTO = $client->getAccessToken($this->getCredentials());
+        $client->calculateEmission($this->getEmptyEmission(), $accessTokenDTO);
     }
 
     public function testItShouldCaptureTooManyRequestsExceptionDuringEmissionCalculation(): void
@@ -132,12 +136,22 @@ class BigMileClientTest extends TestCase
         $client = new BigMileClient(
             new Client(['handler' => $handleStack])
         );
-        $client->calculateEmission($this->getEmptyEmission());
+        $accessTokenDTO = $client->getAccessToken($this->getCredentials());
+        $client->calculateEmission($this->getEmptyEmission(), $accessTokenDTO);
     }
 
     public function testItShouldCalculateEmission(): void
     {
-        $handleStack = HandlerStack::create(
+        $accessTokenHandle = HandlerStack::create(
+            new MockHandler([
+                new Response(
+                    BigMileClient::HTTP_OK,
+                    [],
+                    $this->successResponse()
+                )
+            ])
+        );
+        $calculateEmissionHandle = HandlerStack::create(
             new MockHandler([
                 new Response(
                     BigMileClient::HTTP_OK,
@@ -147,10 +161,12 @@ class BigMileClientTest extends TestCase
             ])
         );
 
-        $client = new BigMileClient(
-            new Client(['handler' => $handleStack])
-        );
-        $response = $client->calculateEmission($this->getEmptyEmission());
+        $clientHandler = new Client(['handler' => $accessTokenHandle]);
+        $client = new BigMileClient($clientHandler);
+        $accessTokenDTO = $client->getAccessToken($this->getCredentials());
+        $handlers = $clientHandler->getConfig()['handler'];
+        $handlers->setHandler($calculateEmissionHandle);
+        $response = $client->calculateEmission($this->getEmptyEmission(), $accessTokenDTO);
 
         $leg = EmissionCalculationFixture::get()['legs'][0];
         /** @var CalculatedShipmentDTO $expectedLeg */
