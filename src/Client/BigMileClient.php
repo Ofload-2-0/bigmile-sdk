@@ -53,7 +53,11 @@ class BigMileClient
     ): CalculateEmissionResponseDTO {
         try {
             $response = $this->client->post(self::CALCULATE_EMISSION_ENDPOINT, [
-                    RequestOptions::JSON => $calculateEmissionDTO->toArray(),
+                    RequestOptions::JSON => [
+                        'calculation' => [
+                            $calculateEmissionDTO->toArray()
+                        ]
+                    ],
                     RequestOptions::HEADERS => [
                         'Authorization' => sprintf('%s %s', $accessTokenDTO->getTokenType(), $accessTokenDTO->getAccessToken())
                     ]
