@@ -7,8 +7,8 @@ namespace Ofload\BigMileSdk\DTOs;
 class CalculateEmissionResponseDTO
 {
     private array $legs;
-    private int $totalCO2eWTW;
-    private int $totalCO2eTTW;
+    private float|int $totalCO2eWTW;
+    private float|int $totalCO2eTTW;
 
     public function getLegs(): array
     {
@@ -21,23 +21,23 @@ class CalculateEmissionResponseDTO
         return $this;
     }
 
-    public function getTotalCO2eWTW(): int
+    public function getTotalCO2eWTW(): float|int
     {
         return $this->totalCO2eWTW;
     }
 
-    public function setTotalCO2eWTW(int $totalCO2eWTW): CalculateEmissionResponseDTO
+    public function setTotalCO2eWTW(float|int $totalCO2eWTW): CalculateEmissionResponseDTO
     {
         $this->totalCO2eWTW = $totalCO2eWTW;
         return $this;
     }
 
-    public function getTotalCO2eTTW(): int
+    public function getTotalCO2eTTW(): float|int
     {
         return $this->totalCO2eTTW;
     }
 
-    public function setTotalCO2eTTW(int $totalCO2eTTW): CalculateEmissionResponseDTO
+    public function setTotalCO2eTTW(float|int $totalCO2eTTW): CalculateEmissionResponseDTO
     {
         $this->totalCO2eTTW = $totalCO2eTTW;
         return $this;
