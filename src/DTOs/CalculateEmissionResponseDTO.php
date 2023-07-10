@@ -52,7 +52,7 @@ class CalculateEmissionResponseDTO
         }, $data['legs']);
 
         return $self->setLegs(...$legs)
-            ->setTotalCO2eTTW($data['totalCO2eWTW'])
-            ->setTotalCO2eWTW($data['totalCO2eTTW']);
+            ->setTotalCO2eTTW($data['totalCO2eTTW'])
+            ->setTotalCO2eWTW($data['totalCO2eWTW']);
     }
 }
