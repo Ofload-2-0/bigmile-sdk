@@ -18,6 +18,7 @@ class CalculateEmissionRequestDTO implements ArrayableInterface
     private string $fuelCategory;
     private mixed $amount;
     private string $unit;
+    private bool $temperatureControlled;
 
     public function getName(): string
     {
@@ -126,6 +127,17 @@ class CalculateEmissionRequestDTO implements ArrayableInterface
     public function setUnit(string $unit): CalculateEmissionRequestDTO
     {
         $this->unit = $unit;
+        return $this;
+    }
+
+    public function isTemperatureControlled(): bool
+    {
+        return $this->temperatureControlled;
+    }
+
+    public function setIsTemperatureControlled(bool $controlledTemperature): CalculateEmissionRequestDTO
+    {
+        $this->temperatureControlled = $controlledTemperature;
         return $this;
     }
 
