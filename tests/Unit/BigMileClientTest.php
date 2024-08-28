@@ -7,55 +7,14 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Ofload\BigMileSdk\Client\BigMileClient;
-use Ofload\BigMileSdk\DTOs\AccessTokenDTO;
 use Ofload\BigMileSdk\DTOs\AddressDTO;
 use Ofload\BigMileSdk\DTOs\CalculatedShipmentDTO;
 use Ofload\BigMileSdk\DTOs\CalculateEmissionRequestDTO;
-use Ofload\BigMileSdk\DTOs\CredentialsDTO;
-use Ofload\BigMileSdk\Exceptions\OauthClientAccessTokenException;
 use Ofload\BigMileSdk\Tests\Fixtures\EmissionCalculationFixture;
 use PHPUnit\Framework\TestCase;
 
 class BigMileClientTest extends TestCase
 {
-    public function testItShouldHandleBadRequestResponse(): void
-    {
-        $this->expectExceptionCode(BigMileClient::HTTP_BAD_REQUEST);
-        $this->expectException(OauthClientAccessTokenException::class);
-
-        $handleStack = HandlerStack::create(
-            new MockHandler([
-                new Response(BigMileClient::HTTP_BAD_REQUEST)
-            ])
-        );
-
-        $client = new BigMileClient(
-            new Client(['handler' => $handleStack])
-        );
-        $client->getAccessToken($this->getCredentials());
-    }
-
-    public function testItShouldReturnAccessToken(): void
-    {
-        $handleStack = HandlerStack::create(
-            new MockHandler([
-                new Response(
-                    BigMileClient::HTTP_OK,
-                    [],
-                    $this->successResponse()
-                )
-            ])
-        );
-
-        $client = new BigMileClient(
-            new Client(['handler' => $handleStack])
-        );
-
-        $accessTokenDTO = $client->getAccessToken($this->getCredentials());
-
-        $this->assertNotEmpty($accessTokenDTO->getAccessToken());
-    }
-
     public function testItShouldCaptureBadRequestExceptionDuringEmissionCalculation(): void
     {
         $this->expectExceptionCode(BigMileClient::HTTP_BAD_REQUEST);
@@ -73,8 +32,7 @@ class BigMileClientTest extends TestCase
         $client = new BigMileClient(
             new Client(['handler' => $handleStack])
         );
-        $accessTokenDTO = $client->getAccessToken($this->getCredentials());
-        $client->calculateEmission($this->getEmptyEmission(), $accessTokenDTO);
+        $client->calculateEmission($this->getEmptyEmission(), $this->getApiKey());
     }
 
     public function testItShouldCaptureUnprocessableEntityExceptionDuringEmissionCalculation(): void
@@ -94,8 +52,8 @@ class BigMileClientTest extends TestCase
         $client = new BigMileClient(
             new Client(['handler' => $handleStack])
         );
-        $accessTokenDTO = $client->getAccessToken($this->getCredentials());
-        $client->calculateEmission($this->getEmptyEmission(), $accessTokenDTO);
+
+        $client->calculateEmission($this->getEmptyEmission(), $this->getApiKey());
     }
 
     public function testItShouldCaptureUnauthorizedExceptionDuringEmissionCalculation(): void
@@ -115,8 +73,7 @@ class BigMileClientTest extends TestCase
         $client = new BigMileClient(
             new Client(['handler' => $handleStack])
         );
-        $accessTokenDTO = $client->getAccessToken($this->getCredentials());
-        $client->calculateEmission($this->getEmptyEmission(), $accessTokenDTO);
+        $client->calculateEmission($this->getEmptyEmission(), $this->getApiKey());
     }
 
     public function testItShouldCaptureTooManyRequestsExceptionDuringEmissionCalculation(): void
@@ -136,8 +93,7 @@ class BigMileClientTest extends TestCase
         $client = new BigMileClient(
             new Client(['handler' => $handleStack])
         );
-        $accessTokenDTO = $client->getAccessToken($this->getCredentials());
-        $client->calculateEmission($this->getEmptyEmission(), $accessTokenDTO);
+        $client->calculateEmission($this->getEmptyEmission(), $this->getApiKey());
     }
 
     public function testItShouldCalculateEmission(): void
@@ -146,8 +102,7 @@ class BigMileClientTest extends TestCase
             new MockHandler([
                 new Response(
                     BigMileClient::HTTP_OK,
-                    [],
-                    $this->successResponse()
+                    []
                 )
             ])
         );
@@ -163,10 +118,9 @@ class BigMileClientTest extends TestCase
 
         $clientHandler = new Client(['handler' => $accessTokenHandle]);
         $client = new BigMileClient($clientHandler);
-        $accessTokenDTO = $client->getAccessToken($this->getCredentials());
         $handlers = $clientHandler->getConfig()['handler'];
         $handlers->setHandler($calculateEmissionHandle);
-        $response = $client->calculateEmission($this->getEmptyEmission(), $accessTokenDTO);
+        $response = $client->calculateEmission($this->getEmptyEmission(), $this->getApiKey());
 
         $leg = EmissionCalculationFixture::get()['legs'][0];
         /** @var CalculatedShipmentDTO $expectedLeg */
@@ -200,17 +154,8 @@ class BigMileClientTest extends TestCase
         return '{"message":"test", "status":'. $statusCode  .', "path": "test", "timestamp":2023-12-30T10:25:04.486Z"}';
     }
 
-    private function successResponse(): string
+    private function getApiKey(): string
     {
-        return '{"token_type":"Bearer","expires_in":3599,"ext_expires_in":3599,"access_token":"e"}';
-    }
-
-    private function getCredentials(): CredentialsDTO
-    {
-        return new CredentialsDTO(
-            'test',
-            'test',
-            'test'
-        );
+        return 'test';
     }
 }
