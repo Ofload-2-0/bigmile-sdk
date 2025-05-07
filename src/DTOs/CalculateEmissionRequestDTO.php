@@ -19,6 +19,8 @@ class CalculateEmissionRequestDTO implements ArrayableInterface
     private mixed $amount;
     private string $unit;
     private bool $temperatureControlled;
+    private string $modality;
+    private ?string $loadCharacteristicCategory;
 
     public function getName(): string
     {
@@ -138,6 +140,18 @@ class CalculateEmissionRequestDTO implements ArrayableInterface
     public function setIsTemperatureControlled(bool $controlledTemperature): CalculateEmissionRequestDTO
     {
         $this->temperatureControlled = $controlledTemperature;
+        return $this;
+    }
+
+    public function setModality(string $modality): CalculateEmissionRequestDTO
+    {
+        $this->modality = $modality;
+        return $this;
+    }
+
+    public function setLoadCharacteristicCategory(string $loadCharacteristicCategory): CalculateEmissionRequestDTO
+    {
+        $this->loadCharacteristicCategory = $loadCharacteristicCategory;
         return $this;
     }
 
