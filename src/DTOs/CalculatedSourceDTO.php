@@ -98,6 +98,6 @@ class CalculatedSourceDTO
             ->setFrameworkVariant($data['frameworkVariant'])
             ->setModality($data['modality'])
             ->setVehicleType($data['vehicleType'])
-            ->setCargoType($data['cargoType']);
+            ->setCargoType($data['cargoType'] ?? '');
     }
 }
