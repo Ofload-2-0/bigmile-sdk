@@ -78,17 +78,6 @@ class CalculatedSourceDTO
         return $this;
     }
 
-    public function getCargoType(): string
-    {
-        return $this->cargoType;
-    }
-
-    public function setCargoType(string $cargoType): CalculatedSourceDTO
-    {
-        $this->cargoType = $cargoType;
-        return $this;
-    }
-
     public static function fromArray(array $data): static
     {
         return (new static())
@@ -97,7 +86,6 @@ class CalculatedSourceDTO
             ->setType($data['type'])
             ->setFrameworkVariant($data['frameworkVariant'])
             ->setModality($data['modality'])
-            ->setVehicleType($data['vehicleType'])
-            ->setCargoType($data['cargoType'] ?? '');
+            ->setVehicleType($data['vehicleType']);
     }
 }

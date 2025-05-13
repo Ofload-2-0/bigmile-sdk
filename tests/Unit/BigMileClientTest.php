@@ -138,7 +138,6 @@ class BigMileClientTest extends TestCase
         $this->assertEquals($leg['calculationParameters']['frameworkVariant'], $calculatedParams->getFrameworkVariant());
         $this->assertEquals($leg['calculationParameters']['modality'], $calculatedParams->getModality());
         $this->assertEquals($leg['calculationParameters']['vehicleType'], $calculatedParams->getVehicleType());
-        $this->assertEquals($leg['calculationParameters']['cargoType'], $calculatedParams->getCargoType());
     }
 
     private function getEmptyEmission(): CalculateEmissionRequestDTO
